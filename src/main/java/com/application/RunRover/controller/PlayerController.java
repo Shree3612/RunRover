@@ -65,12 +65,40 @@ public class PlayerController {
     }
 
     @GetMapping("/highestRuns")
-    public ResponseEntity<Player> getPlayerWithHighestRuns() {
+    public ResponseEntity<?> getPlayerWithHighestRuns() {
         try {
-            return new ResponseEntity(playerService.getPlayerWithHighestRunsScored(), HttpStatus.OK);
+            return new ResponseEntity<Player>(playerService.getPlayerWithHighestRunsScored(), HttpStatus.OK);
         } catch (PlayerNotFoundException e) {
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
+    @GetMapping("/minimumRuns")
+    public ResponseEntity<?> getPlayerWithMinimumRuns() {
+        try {
+            return new ResponseEntity<Player>(playerService.getPlayerWithMinimumRunsScored(), HttpStatus.OK);
+        } catch (PlayerNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/maximumWickets")
+    public ResponseEntity<?> maximumWickets() {
+        try{
+            return new ResponseEntity<Player>(playerService.maximumWickets(), HttpStatus.OK);
+        }
+        catch(PlayerNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/playerNameContainingWords")
+    public ResponseEntity<?> playerNameContainingWords(@RequestParam String word){
+        try{
+            return new ResponseEntity<List<Player>>(playerService.playerNameContainingWords(word), HttpStatus.OK);
+        }
+        catch(PlayerNotFoundException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

@@ -33,9 +33,9 @@ public class TeamController {
             @PathVariable int teamId,
             @PathVariable int playerId) {
         try{
-            return new ResponseEntity<>(teamService.addPlayerToTeam(playerId, teamId), HttpStatus.OK);
+            return new ResponseEntity<String>(teamService.addPlayerToTeam(playerId, teamId), HttpStatus.OK);
         }catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -47,7 +47,7 @@ public class TeamController {
         try{
             return new ResponseEntity<String>(teamService.updateTeamOfAPlayer(playerId, teamId), HttpStatus.OK);
         }catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

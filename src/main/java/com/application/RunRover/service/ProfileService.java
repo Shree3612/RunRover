@@ -20,8 +20,6 @@ public class ProfileService {
 
     public ProfileResponse addPlayerProfile(ProfileRequest profileRequest,
                                             int playerId) {
-//        Player player = playerRepository.findById(playerId)
-//                .orElseThrow(() -> new PlayerNotFoundException("Invalid Player id"));
         Optional<Player> optionalPlayer = playerRepository.findById(playerId);
         if (optionalPlayer.isEmpty()) {
             throw new PlayerNotFoundException("Invalid player Id");

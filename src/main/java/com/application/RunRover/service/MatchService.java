@@ -24,9 +24,6 @@ public class MatchService {
     @Autowired
     CricketMatchRepository matchRepository;
 
-//    @Autowired
-//    CricketMatch cricketMatch;
-
     public MatchResponse registerMatch(MatchRequest matchRequest, int teamAId, int teamBId) {
         Optional<Team> teamAOptional = teamRepository.findById(teamAId);
         Optional<Team> teamBOptional = teamRepository.findById(teamBId);
@@ -37,7 +34,6 @@ public class MatchService {
         Team teamA = teamAOptional.get();
         Team teamB = teamBOptional.get();
 
-        // Create a CricketMatch object manually, no need for autowiring
         CricketMatch cricketMatch = MatchConvertor.matchRequestToMatch(matchRequest);
 
         // Ensure the teams list is initialized
@@ -45,8 +41,6 @@ public class MatchService {
             cricketMatch.setTeams(new ArrayList<>());
         }
 
-        // Create a CricketMatch object manually, no need for autowiring
-        //CricketMatch cricketMatch = MatchConvertor.matchRequestToMatch(matchRequest);
         cricketMatch.getTeams().add(teamA);
         cricketMatch.getTeams().add(teamB);
 
@@ -57,6 +51,6 @@ public class MatchService {
         teamRepository.save(teamA);
         teamRepository.save(teamB);
 
-        return MatchConvertor.matchToMatchRespone(savedMatch);
+        return MatchConvertor.matchToMatchResponse(savedMatch);
     }
 }

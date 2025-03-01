@@ -1,6 +1,7 @@
 package com.application.RunRover.controller;
 
 import com.application.RunRover.dto.request.ProfileRequest;
+import com.application.RunRover.dto.response.ProfileResponse;
 import com.application.RunRover.exception.PlayerNotFoundException;
 import com.application.RunRover.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +21,20 @@ public class ProfileController {
     public ResponseEntity<?> addPlayerProfile(@RequestBody ProfileRequest profileRequest,
                                            @RequestParam("player-id") int playerId) {
         try{
-            return new ResponseEntity<>(profileService.addPlayerProfile(profileRequest,playerId),
+            return new ResponseEntity<ProfileResponse>(profileService.addPlayerProfile(profileRequest,playerId),
                     HttpStatus.CREATED);
         }catch (PlayerNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping("/update")
     public ResponseEntity<?> updateProfile(@RequestBody ProfileRequest profileRequest, @RequestParam int playerId){
         try{
-            return new ResponseEntity<>(profileService.updateProfile(profileRequest, playerId), HttpStatus.OK);
+            return new ResponseEntity<String>(profileService.updateProfile(profileRequest, playerId), HttpStatus.OK);
         }
         catch(PlayerNotFoundException e){
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 

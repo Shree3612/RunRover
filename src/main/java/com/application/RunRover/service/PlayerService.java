@@ -21,11 +21,7 @@ import java.util.List;
 public class PlayerService {
 
     @Autowired
-    PlayerRepository playerRepository; // constructor injection
-
-//    public PlayerService(PlayerRepository playerRepository) {
-//        this.playerRepository = playerRepository;
-//    }
+    PlayerRepository playerRepository;
 
     @Autowired
     JavaMailSender javaMailSender;
@@ -108,6 +104,59 @@ public class PlayerService {
         Player player =  playerRepository.findPlayerWithHighestRunsScored()
                 .orElseThrow(() -> new PlayerNotFoundException("No player present in the database"));
         return player;
+    }
+
+    public Player getPlayerWithMinimumRunsScored() {
+        List<Player> players = playerRepository.findAll();
+        if (players.isEmpty()) {
+            throw new PlayerNotFoundException("No player present in the database");
+        }
+        Player minRunsPlayer = null;
+        int minRuns = Integer.MAX_VALUE;
+        for (Player player : players) {
+            if (player.getProfile() != null && player.getProfile().getRunsScored() < minRuns) {
+                minRuns = player.getProfile().getRunsScored();
+                minRunsPlayer = player;
+            }
+        }
+        if (minRunsPlayer == null) {
+            throw new PlayerNotFoundException("No player with valid runs data found");
+        }
+        return minRunsPlayer;
+    }
+
+    public Player maximumWickets() {
+        List<Player> players = playerRepository.findAll();
+        if(players==null) {
+             throw new PlayerNotFoundException("Player not present in the database");
+        }
+        Player player = null;
+        int maximumWickets = 0;
+        for(Player p : players) {
+            if(p.getProfile()!=null && p.getProfile().getWicketsTaken()>maximumWickets) {
+                player = p;
+                maximumWickets = p.getProfile().getWicketsTaken();
+            }
+        }
+        return player;
+    }
+
+    public List<Player> playerNameContainingWords(String str){
+        List<Player> players = playerRepository.findAll();
+        if(players.isEmpty()) {
+            throw new PlayerNotFoundException("Players not present in Database");
+        }
+        List<Player> result = new ArrayList<>();
+        for(Player p : players) {
+            String name = p.getName();
+            if(name.contains(str)) {
+                result.add(p);
+            }
+        }
+        if(result.isEmpty()) {
+            throw new PlayerNotFoundException("Players not present in Database");
+        }
+        return result;
     }
 
 }

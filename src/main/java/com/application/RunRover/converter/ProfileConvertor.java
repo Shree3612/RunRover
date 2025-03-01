@@ -25,12 +25,5 @@ public class ProfileConvertor {
         response.setPlayer(playerResponse);
         return response;
 
-//        return ProfileResponse.builder()
-//                .runsScored(playerProfile.getRunsScored())
-//                .wicketsTaken(playerProfile.getWicketsTaken())
-//                .battingAvg(playerProfile.getBattingAvg())
-//                .bowlingAvg(playerProfile.getBowlingAvg())
-//                .player(PlayerConvertor.playerToPlayerResponse(playerProfile.getPlayer()))
-//                .build();
     }
 }

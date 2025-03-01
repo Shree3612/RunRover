@@ -20,7 +20,7 @@ public class MatchConvertor {
         return match;
     }
 
-    public static MatchResponse matchToMatchRespone(CricketMatch match) {
+    public static MatchResponse matchToMatchResponse(CricketMatch match) {
 
         Team teamA = match.getTeams().get(0);
         Team teamB = match.getTeams().get(1);
@@ -36,18 +36,5 @@ public class MatchConvertor {
         response.setTeams(teamResponses);
         return response;
 
-//        Team teamA = match.getTeams().get(0);
-//        Team teamB = match.getTeams().get(1);
-//        List<TeamResponse> teamResponses = new ArrayList<>();
-//        teamResponses.add(TeamConvertor.teamToTeamResponse(teamA));
-//        teamResponses.add(TeamConvertor.teamToTeamResponse(teamB));
-//
-//        return MatchResponse.builder()
-//                .title(match.getTitle())
-//                .noOfOvers(match.getNoOfOvers())
-//                .venue(match.getVenue())
-//                .createdAt(match.getCreatedAt())
-//                .teams(teamResponses)
-//                .build();
     }
 }
